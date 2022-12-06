@@ -1,0 +1,22 @@
+[
+    {
+        "answers" : ["answer1", "answer2", "answer3", "answer4"],
+        "correctAnswer": 1
+      },
+  
+      {
+        "answers" : ["answer1", "answer2", "answer3", "answer4"],
+        "correctAnswer": 2
+      },
+
+      {
+        "answers" : ["answer1", "answer2", "answer3", "answer4"],
+        "correctAnswer": 3
+      },
+
+      {
+        "answers" : ["answer1", "answer2", "answer3", "answer4"],
+        "correctAnswer": 4
+      }
+
+]

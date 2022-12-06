@@ -1,0 +1,21 @@
+<mat-drawer-container class="drawer-container" autosize>
+    <mat-drawer #drawer class="app-sidenav mat-elevation-z5" mode="push">
+        <mat-toolbar class="dark-theme">
+          Options
+        </mat-toolbar>
+
+        <mat-nav-list>
+          <button mat-button [matMenuTriggerFor]="quizes" class="menu-button">New quiz</button>
+          <mat-menu #quizes>
+            <button mat-menu-item (click)="startQuiz()">Quiz1</button>
+          </mat-menu>
+        </mat-nav-list>
+        
+    </mat-drawer>
+  
+    <div class="app-sidenav-content">
+      <app-toolbar (toggleDrawer)="drawer.toggle()"></app-toolbar>
+      <app-quiz *ngIf="quizStarted" (quizOver)="endQuiz($event)"></app-quiz>
+    </div>
+  
+  </mat-drawer-container>

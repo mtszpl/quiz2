@@ -1,0 +1,11 @@
+<div id="quiz-component">
+    <p class="question">
+        {{ currentQuestion.question }}
+    </p>
+    <div class="answers">
+        <app-quiz-questions [question]="currentQuestion" (onAnswerClicked)="answerSelected($event)"></app-quiz-questions>
+    </div>
+    <div class="navigation">
+        <button mat-raised-button (click)="answerConfirmed()">Confirm answer</button>
+    </div>
+</div>

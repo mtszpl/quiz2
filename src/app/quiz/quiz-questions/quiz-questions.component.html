@@ -1,0 +1,13 @@
+<div class="answer-block">
+    <mat-button-toggle-group>
+        <mat-button-toggle  *ngFor="let answer of question.answers" (click)="answerClicked(question.answers.indexOf(answer) + 1)">{{ answer }}</mat-button-toggle>
+    </mat-button-toggle-group>
+    <!--
+    <mat-button-toggle-group>
+    <mat-button-toggle (click)="answerClicked(1)">{{ question.answers[0] }}</mat-button-toggle>
+    <mat-button-toggle (click)="answerClicked(2)">{{ question.answers[1] }}</mat-button-toggle>
+    <mat-button-toggle (click)="answerClicked(3)">{{ question.answers[2] }}</mat-button-toggle>
+    <mat-button-toggle (click)="answerClicked(4)">{{ question.answers[3] }}</mat-button-toggle>
+    </mat-button-toggle-group>
+    -->
+</div>

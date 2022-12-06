@@ -1,0 +1,22 @@
+p {
+    font-family: 'Roboto';
+    font-size: 240%;
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+    line-height: 1.5;
+}
+
+#quiz-component {
+    display: flex;
+    flex-direction: column;
+    row-gap: 50%;
+
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
