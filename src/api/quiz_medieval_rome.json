@@ -25,5 +25,12 @@
       "answers" : ["Yarmouk", "Pliska", "Calinicum", "Manzikert"],
       "correctAnswer": 3,
       "description": "Defeat of Romanos IV at Manzikert in 1071 caused massive chaos in Roman empire. When emperor Alexios Komnenos tried to undo the damage and reclaim Anatolia, he asked pope in Rome for mercenaries. Instead, the pope organised crusades."
+    },
+
+    {
+        "question": "Emperor Heraclius planned to move capital away from Constantinopole. To which city?",
+        "answers": ["Carthage", "Antioch", "Adrianopole", "Thesalloniki"],
+        "correctAnswer": 0,
+        "description": "When Sassanid armies beseged Constantinopole, Heraclius planned to move capital to Carthage, away from Persian, Slav and Avar threat."
     }
 ]
