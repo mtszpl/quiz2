@@ -8,12 +8,12 @@ import { Question } from 'src/app/quiz/question';
 })
 export class QuestionsRetreiverService {
 
-  private questionsUrl: string = "../"
+  private questionsUrl: string = "api/"
 
   constructor(private http: HttpClient) { }
 
-  getQuestions(): Observable<Question[]> {
-    return this.http.get<Question[]>(this.questionsUrl).pipe(
+  getQuestions(url: string): Observable<Question[]> {
+    return this.http.get<Question[]>(this.questionsUrl + url).pipe(
       catchError(this.handleError)
     )
   }

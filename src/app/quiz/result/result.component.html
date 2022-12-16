@@ -1,0 +1,26 @@
+<mat-card class="result_card">
+    <mat-card-header>
+        <mat-card-title>
+            The quiz is over, thank you for playing!
+        </mat-card-title>
+            <mat-card-subtitle>
+                With your score of {{ _score }} out of {{ _questions.length }} points, you will receive reward of {{ calculateReward(_score) }} PNMP.
+            </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+    <p>Your answers:</p>
+        <div class="answers" *ngFor="let question of _questions">
+           <p>
+                Question {{ _questions.indexOf(question) + 1 }}: {{ question.question }} <br>
+                Your answer: {{ _answers[_questions.indexOf(question)] }} is 
+                {{ _answers[_questions.indexOf(question)] === question.answers[question.correctAnswer] ? "correct." : "incorrect." }} <br>
+                Correct answer is {{ question.answers[question.correctAnswer] }} <br>
+                {{ question.description }}
+            </p>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button class="continue_button" (click)="finishedReading()">Continue</button>
+    </mat-card-actions>
+</mat-card>

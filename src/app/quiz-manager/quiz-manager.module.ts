@@ -9,6 +9,7 @@ import { MaterialModule } from 'shared/materials/materials.module';
 import { QuizComponent } from '../quiz/quiz.component';
 import { QuizQuestionsComponent } from '../quiz/quiz-questions/quiz-questions.component';
 import { QuizEndedDialogComponent } from '../quiz/quiz-ended-dialog/quiz-ended-dialog.component';
+import { ResultComponent } from '../quiz/result/result.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { QuizEndedDialogComponent } from '../quiz/quiz-ended-dialog/quiz-ended-d
     ToolbarComponent,
     QuizComponent,
     QuizQuestionsComponent,
-    QuizEndedDialogComponent
+    QuizEndedDialogComponent,
+    ResultComponent
   ],
   imports: [
     CommonModule,

@@ -1,42 +1,70 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatDrawer } from '@angular/material/sidenav';
-import { QuizEndedDialogComponent } from '../quiz/quiz-ended-dialog/quiz-ended-dialog.component';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Question } from '../quiz/question';
+import { ResultComponent } from '../quiz/result/result.component';
 
 @Component({
   selector: 'app-drawer',
   templateUrl: './drawer.component.html',
   styleUrls: ['./drawer.component.scss']
 })
-export class DrawerComponent implements OnInit {
+export class DrawerComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(MatDrawer) drawer!: MatDrawer
+  @ViewChildren(ResultComponent) results!: QueryList<ResultComponent>
+  result: ResultComponent | undefined
+
+  currentQuestions: Question[] = []
+  answers: number[] = []
+
   quizStarted: boolean = false
+  displayingResults: boolean = false
 
-  constructor(
-    private dialog: MatDialog
-  ) { }
+  quizMap: Map<string, string> = new Map<string, string>([
+    ["Ancient Roman Empire", "quiz_rome.json"],
+    ["Medieval Roman Empire", "quiz_medieval_rome.json"]
+  ])
+
+  selectedQuiz: any = ""
+
+
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  startQuiz(): void {
-    console.log(typeof this.drawer)
-    this.drawer.toggle()
-    this.quizStarted = !this.quizStarted
+  ngAfterViewInit(): void {
+    this.results.changes.subscribe( () => {
+      this.result = this.results.get(0) 
+      if(this.result != undefined)
+        this.result!.setResults(this.answers)
+    })
   }
 
-  endQuiz(score: number): void {
-    console.log(`quiz over, ${score}`)
+  startQuiz(id: string): void {
     this.quizStarted = !this.quizStarted
-    let dialogRef = this.dialog.open(QuizEndedDialogComponent, {
-      width: '450px',
-      data: {
-        "score": score
-      }
-    })
-    dialogRef.afterClosed().subscribe( () => {
-      console.log("send stuff to blockchain")
-    })
+    this.selectedQuiz = this.quizMap.get(id)
+  }
+
+  setCurrentQuizQuestions(questions: Question[]) {
+    this.currentQuestions = []
+    this.currentQuestions = questions
+  }
+
+  quizAnswered(answers: number[]) {
+    this.answers = answers
+    this.quizStarted = false
+    this.displayingResults = true
+  }
+
+  endQuiz(): void {
+    console.log(this.answers)
+    this.result!.setResults(this.answers)
+  }
+
+  resetScore() {
+    if(this.result == undefined)
+      return
+    this.displayingResults = false
+    this.result!.reset()
+    this.currentQuestions = []
   }
 }

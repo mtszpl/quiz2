@@ -1,4 +1,5 @@
-<div id="quiz-component">
+<mat-spinner *ngIf="isLoaded === false"></mat-spinner>
+<div id="quiz-component" *ngIf="isLoaded === true">
     <p class="question">
         {{ currentQuestion.question }}
     </p>

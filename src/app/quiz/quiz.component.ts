@@ -1,8 +1,9 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { QuestionsRetreiverService } from 'src/questions-retreiver.service';
+import { QuestionsRetreiverService } from '../../../shared/questions-retreiver/questions-retreiver.service';
 
 import { Question } from './question';
+import { QuizResults } from './quiz-results';
 
 @Component({
   selector: 'app-quiz',
@@ -11,13 +12,18 @@ import { Question } from './question';
 })
 export class QuizComponent implements OnInit, OnDestroy {
 
-  @Output() quizOver: EventEmitter<number> = new EventEmitter<number>()
+  @Input() quizName: string = ""
+  @Output() quizOver: EventEmitter<number[]> = new EventEmitter<number[]>()
+  @Output() questionsReceived: EventEmitter<Question[]> = new EventEmitter<Question[]>()
 
   subscription!: Subscription
   questions: Question[] = []
 
+  isLoaded: boolean = false
+
   currentQuestion!: Question
   selectedAnswer: number = 0
+  answers: number[] = []
   points: number = 0
   noQuestion: number = 0
 
@@ -26,10 +32,14 @@ export class QuizComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.questtionsService.getQuestions().subscribe({
+    this.subscription = this.questtionsService.getQuestions(this.quizName).subscribe({
       next: _questions => {
         this.questions = _questions
         this.currentQuestion = this.questions[0]
+      },
+      complete: () => {
+        this.isLoaded = true
+        this.questionsReceived.emit(this.questions)
       }
     })
   }
@@ -43,10 +53,10 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   answerConfirmed(): void {
+    this.answers.push(this.selectedAnswer)
     let isCorrect: boolean = this.selectedAnswer === this.currentQuestion.correctAnswer
     if(isCorrect)
      this.points++
-    console.log(isCorrect)
     this.nextQuestion()
   }
 
@@ -54,8 +64,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     if( this.questions.length > ++this.noQuestion)
       this.currentQuestion = this.questions[this.noQuestion]
     else{
-      console.log("this was the last question")
-      this.quizOver.emit(this.points)
+      this.quizOver.emit(this.answers)
     }
   }
 

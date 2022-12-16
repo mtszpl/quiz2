@@ -1,7 +1,7 @@
 .mat-button-toggle-group {
     margin-left: auto;
     margin-right: auto;
-    width: 25%;
+    width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,10 +15,19 @@
     margin: 1%;
     background-color: darkgray;
     color: white;
+
+    transition: 0.8s;
+}
+
+.mat-button-toggle:hover {
+    background: linear-gradient(
+        to right,
+        grey,
+        blue
+    );
 }
 
 .mat-button-toggle-checked {
-    transition: 1000ms ease;
     background: linear-gradient(
         to right,
         grey,

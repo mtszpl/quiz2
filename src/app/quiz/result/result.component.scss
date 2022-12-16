@@ -1,0 +1,11 @@
+.result_card {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2%;
+}
+
+.mat-card-actions {
+    align-self: center;
+}
