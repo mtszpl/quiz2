@@ -1,0 +1,18 @@
+.question {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.remove-button {
+    align-self: flex-start;
+}
+
+.mat-card-actions {
+    align-self: flex-end;
+}

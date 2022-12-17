@@ -1,6 +1,14 @@
-import { AfterViewInit, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Question } from '../quiz/question';
+import { QuizConstructorComponent } from '../quiz/quiz-constructior/quiz-constructor.component';
 import { ResultComponent } from '../quiz/result/result.component';
+import { writeFileSync } from 'fs';
+
+export class NewQuizData {
+  name: string = ""
+  questionsInQuiz: Question[] = []
+}
 
 @Component({
   selector: 'app-drawer',
@@ -11,6 +19,8 @@ export class DrawerComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(ResultComponent) results!: QueryList<ResultComponent>
   result: ResultComponent | undefined
+
+  newQuiz: NewQuizData = new NewQuizData()
 
   currentQuestions: Question[] = []
   answers: number[] = []
@@ -26,7 +36,9 @@ export class DrawerComponent implements OnInit, AfterViewInit {
   selectedQuiz: any = ""
 
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
   }
@@ -66,5 +78,20 @@ export class DrawerComponent implements OnInit, AfterViewInit {
     this.displayingResults = false
     this.result!.reset()
     this.currentQuestions = []
+  }
+
+  addNewQuiz() {
+    let dialogRef = this.dialog.open(QuizConstructorComponent, {
+      width: '450px',
+      maxHeight: '90vh',
+      data: { name: this.newQuiz.name, questionsInQuiz: this.newQuiz.questionsInQuiz}
+    })
+
+    dialogRef.afterClosed().subscribe( quiz => {
+      let questionsOfNewQuiz: string = JSON.stringify(this.newQuiz.questionsInQuiz)
+      console.log(questionsOfNewQuiz)
+      //save quiz to db
+      //this.quizMap.set(`${this.newQuiz.name}.json`, this.newQuiz.name)
+    })
   }
 }

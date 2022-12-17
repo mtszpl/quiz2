@@ -1,0 +1,55 @@
+<h2>Quiz creator</h2>
+
+<mat-form-field class="example-full-width">
+    <mat-label>Your quiz name</mat-label>
+    <input matInput [formControl]="nameFormControl" [(ngModel)]="data.name">
+    <mat-error *ngIf="nameFormControl.hasError('required')">
+        Name is <strong>required</strong>
+    </mat-error>
+</mat-form-field>
+
+<div class="question">
+    <mat-dialog-content  *ngFor="let question of data.questionsInQuiz"> 
+        <mat-card>
+            <mat-card-header>
+                <mat-form-field class="example-form-field">
+                    <mat-label>Question</mat-label>
+                    <input matInput type="text" [(ngModel)]="question.question">
+                    <button *ngIf="question.question" matSuffix mat-icon-button (click)="question.question=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>                  
+            </mat-card-header>
+            <mat-card-content *ngFor="let answer of question.answers; let i = index">
+                <mat-form-field>
+                    <mat-label>Answer</mat-label>
+                    <input matInput type="text" [(ngModel)]="question.answers[i]">
+                </mat-form-field>
+                <button mat-mini-fab type="button" (click)="removeAnswer(question, answer)">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-card-content>
+            <mat-card-content>
+                
+            </mat-card-content>
+            <mat-card-actions class="remove-button">
+                <button mat-mini-fab color="primary" type="button" (click)="addAnswer(question)">
+                    <mat-icon>plus_one</mat-icon>
+                </button>
+                <button mat-mini-fab color="primary" type="button" (click)="removeQuestion(question)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </mat-dialog-content>
+</div>
+
+<mat-dialog-actions>
+    <button mat-mini-fab color="primary" (click)="addQuestion()">
+        <mat-icon>plus_one</mat-icon>
+    </button>
+    <div class="result-buttons">
+        <button mat-raised-button [mat-dialog-close]="data">Confirm</button>
+        <button mat-raised-button (click)="canceledCreation()">Cancel</button>
+    </div>
+<mat-dialog-actions>            

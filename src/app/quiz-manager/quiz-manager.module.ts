@@ -8,8 +8,11 @@ import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { MaterialModule } from 'shared/materials/materials.module';
 import { QuizComponent } from '../quiz/quiz.component';
 import { QuizQuestionsComponent } from '../quiz/quiz-questions/quiz-questions.component';
-import { QuizEndedDialogComponent } from '../quiz/quiz-ended-dialog/quiz-ended-dialog.component';
 import { ResultComponent } from '../quiz/result/result.component';
+import { QuizConstructorComponent } from '../quiz/quiz-constructior/quiz-constructor.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -19,13 +22,17 @@ import { ResultComponent } from '../quiz/result/result.component';
     ToolbarComponent,
     QuizComponent,
     QuizQuestionsComponent,
-    QuizEndedDialogComponent,
-    ResultComponent
+    ResultComponent,
+    QuizConstructorComponent
   ],
   imports: [
     CommonModule,
     QuizManagerRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class QuizManagerModule { }

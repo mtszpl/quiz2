@@ -11,6 +11,9 @@
 }
 
 .mat-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin: 5%;
   align-items: center;
 }
