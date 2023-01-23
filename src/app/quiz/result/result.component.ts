@@ -21,16 +21,17 @@ export class ResultComponent implements OnInit {
   }
 
   setResults(answers: number[]) {
-    if(answers.length != this._questions.length){
-      alert("unknown error")
-      return;
-    }
     for(let i = 0; i < answers.length; i++){
       this._answers.push(this._questions[i].answers[answers[i]])
       if(answers[i] === this._questions[i].correctAnswer)
-      this._score++
+        this._score++
     }
 
+  }
+
+  isAnswerCorrect( question: Question) {
+    let output: string;
+     return this._answers[this._questions.indexOf(question)] === question.answers[question.correctAnswer] ? "correct." : "incorrect."
   }
 
   calculateReward(score: number): number {

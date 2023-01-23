@@ -7,10 +7,10 @@
         <mat-nav-list>
           <button mat-button [matMenuTriggerFor]="quizes" class="menu-button">Start quiz</button>
           <mat-menu #quizes>
-            <button mat-menu-item *ngFor="let quiz of quizMap | keyvalue"
+            <button mat-menu-item *ngFor="let quiz of quizList; let i = index"
              (click)="drawer.toggle()"
              (click)="resetScore()"
-             (click)="startQuiz(quiz.key)">{{ quiz.key }}</button>
+             (click)="startQuiz(i)">{{ quiz }}</button>
           </mat-menu>
           <button mat-button class="menu-button"
             (click)="addNewQuiz()">Add quiz</button>
@@ -21,7 +21,11 @@
     <div class="app-sidenav-content">
       <app-toolbar (toggleDrawer)="drawer.toggle()"></app-toolbar>
       <div class="main-content">
-        <app-quiz *ngIf="quizStarted" (questionsReceived)="setCurrentQuizQuestions($event)" (quizOver)="quizAnswered($event)" [quizName]="selectedQuiz"></app-quiz>
+        <app-quiz *ngIf="quizStarted"
+         (questionsReceived)="setCurrentQuizQuestions($event)"
+         (quizOver)="quizAnswered($event)"
+         (quizCanceledEvent)="quizAnswered($event)"
+         [quizName]="selectedQuiz"></app-quiz>
         <app-result #resultCard *ngIf="displayingResults === true" [_questions]="currentQuestions" (resultAnalysisFinished)="resetScore()"></app-result>
       </div>
     </div>

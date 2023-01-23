@@ -104,6 +104,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "quiz:build:production",
+            "firebaseProject": "quizproject-4b7f0",
+            "firebaseHostingSite": "lifelinequiz"
+          }
         }
       }
     }

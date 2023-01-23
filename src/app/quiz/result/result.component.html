@@ -12,9 +12,9 @@
     <p>Your answers:</p>
         <div class="answers" *ngFor="let question of _questions">
            <p>
-                Question {{ _questions.indexOf(question) + 1 }}: {{ question.question }} <br>
+                Question {{ _questions.indexOf(question) + 1 }}: {{ question.content }} <br>
                 Your answer: {{ _answers[_questions.indexOf(question)] }} is 
-                {{ _answers[_questions.indexOf(question)] === question.answers[question.correctAnswer] ? "correct." : "incorrect." }} <br>
+                {{ isAnswerCorrect(question) }} <br>
                 Correct answer is {{ question.answers[question.correctAnswer] }} <br>
                 {{ question.description }}
             </p>

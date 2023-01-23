@@ -1,12 +1,13 @@
 <mat-spinner *ngIf="isLoaded === false"></mat-spinner>
 <div id="quiz-component" *ngIf="isLoaded === true">
     <p class="question">
-        {{ currentQuestion.question }}
+        {{ currentQuestion.content }}
     </p>
     <div class="answers">
         <app-quiz-questions [question]="currentQuestion" (onAnswerClicked)="answerSelected($event)"></app-quiz-questions>
     </div>
     <div class="navigation">
         <button mat-raised-button (click)="answerConfirmed()">Confirm answer</button>
+        <button mat-raised-button (click)="quizCancelled()">End quiz</button>
     </div>
 </div>

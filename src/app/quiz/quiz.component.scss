@@ -16,7 +16,8 @@ p {
 
 .navigation {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 30px;
     justify-content: center;
     align-items: center;
 }

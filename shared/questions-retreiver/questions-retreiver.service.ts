@@ -1,32 +1,37 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Question } from 'src/app/quiz/question';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionsRetreiverService {
 
-  private questionsUrl: string = "api/"
+  constructor(
+    private quizDatabase: AngularFireDatabase
+    ) {    }
 
-  constructor(private http: HttpClient) { }
-
-  getQuestions(url: string): Observable<Question[]> {
-    return this.http.get<Question[]>(this.questionsUrl + url).pipe(
-      catchError(this.handleError)
-    )
+  getQuizes() {
+    return this.quizDatabase.list('Quizes/').snapshotChanges()
+    .pipe(map(items => {
+      return items.map(a => {
+        const key = a.payload.key
+        return key
+      })
+    }))
   }
 
-  private handleError(err: HttpErrorResponse) {
-    let errorMsg = ''
-    if(err.error instanceof ErrorEvent)
-      errorMsg = `Error occured: ${err.error.message}`
-    else
-      errorMsg = `Server returned code: ${err.status}, error message is: ${err.message}`
+  getQuestions(url: string): Observable<Question[]> {
+    return this.quizDatabase.list<Question>(`/Quizes/${url}`).valueChanges()
+  }
 
-    console.error(errorMsg)
-    return throwError(() => errorMsg)
+  addQuiz(newName: string, newQuestions: Question[]) {
+    let i = 0;
+    newQuestions.forEach(question => {
+      this.quizDatabase.list(`/Quizes/${newName}/`).set( `question${i}`, question)
+      i++
+    });
   }
 
 }

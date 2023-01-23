@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { QuestionsRetreiverService } from '../../../shared/questions-retreiver/questions-retreiver.service';
 
 import { Question } from './question';
-import { QuizResults } from './quiz-results';
 
 @Component({
   selector: 'app-quiz',
@@ -14,6 +13,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   @Input() quizName: string = ""
   @Output() quizOver: EventEmitter<number[]> = new EventEmitter<number[]>()
+  @Output() quizCanceledEvent: EventEmitter<number[]> = new EventEmitter<number[]>()
   @Output() questionsReceived: EventEmitter<Question[]> = new EventEmitter<Question[]>()
 
   subscription!: Subscription
@@ -32,15 +32,11 @@ export class QuizComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.questtionsService.getQuestions(this.quizName).subscribe({
-      next: _questions => {
+    this.subscription = this.questtionsService.getQuestions(this.quizName).subscribe(_questions => { 
         this.questions = _questions
         this.currentQuestion = this.questions[0]
-      },
-      complete: () => {
         this.isLoaded = true
         this.questionsReceived.emit(this.questions)
-      }
     })
   }
 
@@ -52,9 +48,16 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.selectedAnswer = answer
   }
 
+  quizCancelled(): void {
+    this.quizCanceledEvent.emit(this.answers)
+  }
+
   answerConfirmed(): void {
     this.answers.push(this.selectedAnswer)
-    let isCorrect: boolean = this.selectedAnswer === this.currentQuestion.correctAnswer
+    let isCorrect: boolean = this.selectedAnswer == this.currentQuestion.correctAnswer
+    console.log(typeof(this.selectedAnswer))
+    console.log(typeof(this.currentQuestion.correctAnswer))
+    console.log(`${this.selectedAnswer}, ${this.currentQuestion.correctAnswer}, ${this.selectedAnswer === this.currentQuestion.correctAnswer}`)
     if(isCorrect)
      this.points++
     this.nextQuestion()

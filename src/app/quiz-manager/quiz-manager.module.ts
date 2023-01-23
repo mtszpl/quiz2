@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { QuizManagerRoutingModule } from './quiz-manager-routing.module';
 import { MainPageComponent } from '../main-page/main-page.component';
-import { DrawerComponent } from '../drawer/drawer.component';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { MaterialModule } from 'shared/materials/materials.module';
 import { QuizComponent } from '../quiz/quiz.component';
@@ -13,6 +12,7 @@ import { QuizConstructorComponent } from '../quiz/quiz-constructior/quiz-constru
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { DrawerComponent } from '../drawer/drawer.component';
 
 
 @NgModule({

@@ -1,6 +1,6 @@
 export class Question {
-    question: string = ""
-    answers: string[] = []
-    correctAnswer: number = -1
+    content: string = ""
+    answers: string[] = [""]
+    correctAnswer: number = 0
     description: string = ""
 }

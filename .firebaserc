@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "quizproject-4b7f0": {
+      "hosting": {
+        "quiz": [
+          "lifelinequiz"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "quizproject-4b7f0"
+  }
+}
